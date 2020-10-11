@@ -1,28 +1,33 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <Header/>
+    <router-view></router-view>
+    <Footer v-if="!$route.meta.isHideFooter"/>
   </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+// 引入Header组件
+import Header from './components/Header'
+// 引入Footer组件
+import Footer from './components/Footer'
+// 引入api接口函数
+// import {reqBaseCategoryList} from './api'
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  name:'App',
+  // 注册组件
+  components:{
+    Header,
+    Footer
+  },
+  mounted () {
+    this.$store.dispatch('getBaseCategoryList')
   }
+  // 界面加载后的生命周期回调
+  // async mounted () {
+  //   const result = await reqBaseCategoryList()
+  //   console.log(result)
+  // }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="less" rel="stylesheet/less" scoped>
 </style>
